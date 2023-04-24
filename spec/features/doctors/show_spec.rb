@@ -58,7 +58,33 @@ RSpec.describe 'the doctors show page' do
       expect(page).to_not have_content("Patient Name: #{@patient_3.patient_name}")
     end
   end
+
+  describe 'User Story 2' do
+    it 'should have a button to remove the patient next to each patient name' do
+      visit doctor_path(@doctor_1)
+
+      within("#patient-#{@patient_1.id}") do
+        expect(page).to have_button "Remove Patient"
+      end
+
+      within("#patient-#{@patient_2.id}") do
+        expect(page).to have_button "Remove Patient"
+      end
+    end
+
+    it 'when I click a button for one patient, it should delete the patient from this doctor but not other doctors' do
+      visit doctor_path(@doctor_1)
+      expect(page).to have_content("Patient Name: #{@patient_2.patient_name}")
+
+      within("#patient-#{@patient_2.id}") do
+        click_button "Remove Patient"
+      end
+
+      expect(current_path).to eq(doctor_path(@doctor_1))
+      expect(page).to_not have_content("Patient Name: #{@patient_2.patient_name}")
+
+      visit doctor_path(@doctor_2)
+      expect(page).to have_content("Patient Name: #{@patient_2.patient_name}")
+    end
+  end
 end
-
-
-
