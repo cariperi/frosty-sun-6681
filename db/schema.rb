@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_19_202642) do
+ActiveRecord::Schema.define(version: 2023_04_24_151407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chefs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dishes", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "chef_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_dishes_on_chef_id"
+  end
 
   create_table "doctors", force: :cascade do |t|
     t.bigint "hospital_id"
@@ -27,5 +42,42 @@ ActiveRecord::Schema.define(version: 2022_09_19_202642) do
     t.string "name"
   end
 
+  create_table "ingredient_dishes", force: :cascade do |t|
+    t.bigint "dish_id"
+    t.bigint "ingredient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dish_id"], name: "index_ingredient_dishes_on_dish_id"
+    t.index ["ingredient_id"], name: "index_ingredient_dishes_on_ingredient_id"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.integer "calories"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "patient_doctors", force: :cascade do |t|
+    t.bigint "doctor_id"
+    t.bigint "patient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_patient_doctors_on_doctor_id"
+    t.index ["patient_id"], name: "index_patient_doctors_on_patient_id"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "patient_name"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "dishes", "chefs"
   add_foreign_key "doctors", "hospitals"
+  add_foreign_key "ingredient_dishes", "dishes"
+  add_foreign_key "ingredient_dishes", "ingredients"
+  add_foreign_key "patient_doctors", "doctors"
+  add_foreign_key "patient_doctors", "patients"
 end
