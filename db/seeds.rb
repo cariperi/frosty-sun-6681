@@ -15,7 +15,7 @@ Hospital.destroy_all
 @hospital_2 = Hospital.create!(name: "Hospital 2")
 
 @doctor_1 = @hospital_1.doctors.create!(name: "Doctor 1", specialty: "internal", university: "ABC")
-@doctor_2 = @hospital_1.doctors.create!(name: "Doctor 1", specialty: "surgery", university: "DEF")
+@doctor_2 = @hospital_1.doctors.create!(name: "Doctor 2", specialty: "surgery", university: "DEF")
 
 @doctor_3 = @hospital_2.doctors.create!(name: "Doctor 3", specialty: "cardio", university: "GHI")
 @doctor_4 = @hospital_2.doctors.create!(name: "Doctor 4", specialty: "oncology", university: "JKL")
