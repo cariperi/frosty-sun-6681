@@ -1,0 +1,8 @@
+<h1>Hospital Show Page</h1>
+
+<h2>Hospital Name: <%= @hospital.name %></h2>
+
+
+<%= @hospital.get_doctors.each do |doctor| %>
+  <p>Doctor: <%= doctor.name %> - Patient Count: <%= doctor.patients.count %></p>
+<% end %>
