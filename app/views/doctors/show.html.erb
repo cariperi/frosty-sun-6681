@@ -1,0 +1,17 @@
+<h1>Doctor Show Page</h1>
+
+<h3>Doctor Name: <%= @doctor.name %></h3>
+<h3>Specialty: <%= @doctor.specialty %></h3>
+<h3>Graduated From: <%= @doctor.university %></h3>
+
+<h3>Hospital Affiliation: <%= @doctor.hospital_name %></h3>
+
+<h2>Patients Affiliated With This Doctor:</h2>
+
+<% @doctor.patients.each do |patient| %>
+  <ul>
+  <div id="patient-<%= patient.id %>">
+    <li><h3>Patient Name: <%= patient.patient_name %></h3></li>
+  </div>
+  </ul>
+<% end %>
