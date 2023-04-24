@@ -13,9 +13,7 @@
   <div id="patient-<%= patient.id %>">
     <li><h3>Patient Name: <%= patient.patient_name %></h3></li>
 
-    <%= form_with url: doctor_patient_path(@doctor, patient), local: true, method: :delete do |form| %>
-      <%= form.submit "Remove Patient" %>
-    <% end %>
+    <%= button_to "Remove Patient", doctor_patient_path(@doctor, patient), method: :delete %>
   </div>
   </ul>
 <% end %>
